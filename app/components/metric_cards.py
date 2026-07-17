@@ -1,11 +1,13 @@
 import streamlit as st
 
+
 ICONS = {
-    "Final Articles": ("📄", "var(--accent-blue)"),
-    "Tier 1 Sources": ("🛡️", "var(--accent-purple)"),
-    "Unique Sources": ("🔗", "var(--accent-amber)"),
-    "Last Generated": ("🕒", "var(--accent-teal)"),
+    "Final Articles": ("01", "Stories surfaced"),
+    "Tier 1 Sources": ("02", "High-confidence coverage"),
+    "Unique Sources": ("03", "Distinct publishers"),
+    "Last Generated": ("04", "Latest pipeline output"),
 }
+
 
 def render(df, latest_file):
     if df.empty:
@@ -25,10 +27,13 @@ def render(df, latest_file):
 
     cards_html = ""
     for label, value in metrics:
-        icon, color = ICONS[label]
+        index_label, meta = ICONS[label]
         cards_html += f"""
         <div class="kpi-card">
-            <div class="kpi-icon" style="background:{color}22;color:{color}">{icon}</div>
+            <div class="kpi-card-top">
+                <div class="kpi-index">{index_label}</div>
+                <div class="kpi-meta">{meta}</div>
+            </div>
             <div class="kpi-value">{value}</div>
             <div class="kpi-label">{label}</div>
         </div>"""

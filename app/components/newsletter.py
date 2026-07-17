@@ -7,4 +7,11 @@ def render(newsletter_content):
         return
 
     html_body = md.markdown(newsletter_content, extensions=["extra"])
-    st.html(f'<div class="newsletter-card">{html_body}</div>')
+    st.html(f"""
+    <div class="newsletter-shell">
+        <div class="newsletter-frame">
+            <div class="newsletter-eyebrow">Newsletter draft</div>
+            <div class="newsletter-card">{html_body}</div>
+        </div>
+    </div>
+    """)

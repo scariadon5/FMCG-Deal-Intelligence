@@ -1,25 +1,34 @@
 import streamlit as st
 
+
 def render():
     with st.sidebar:
         st.html("""
-        <div style="padding:8px 4px 24px">
-            <div style="font-weight:800;font-size:1.15rem;color:var(--text);line-height:1.3">
-                FMCG<br>Deal<br>Intelligence
+        <div class="sidebar-brand">
+            <div class="sidebar-brand-mark">FD</div>
+            <div class="sidebar-brand-copy">
+                <div class="sidebar-brand-title">FMCG Deal Intelligence</div>
+                <div class="sidebar-brand-subtitle">Executive dashboard</div>
             </div>
         </div>
         """)
 
         st.html("""
-        <div class="nav-list">
-            <div class="nav-item nav-active">Overview</div>
-            <div class="nav-item">Newsletter</div>
-            <div class="nav-item">Deals</div>
-            <div class="nav-item">Pipeline</div>
-            <div class="nav-item">Sources</div>
+        <div class="sidebar-section">
+            <div class="nav-section-label">Workspace</div>
         </div>
-        <hr style="margin:20px 0">
-        <div class="nav-section-label">Pipeline stages</div>
+        <div class="sidebar-panel nav-list">
+            <a class="nav-link nav-link-active" href="#overview">Overview</a>
+            <a class="nav-link" href="#newsletter">Newsletter</a>
+            <a class="nav-link" href="#deals">Deals</a>
+            <a class="nav-link" href="#pipeline">Pipeline</a>
+            <a class="nav-link" href="#sources">Sources</a>
+        </div>
+        """)
+
+        st.html("""
+        <div class="sidebar-section">
+            <div class="nav-section-label">Pipeline stages</div>
         """)
 
         stages = [
@@ -41,9 +50,9 @@ def render():
                     <div class="side-stage-sub">{sub}</div>
                 </div>
             </div>"""
-        st.html(f'<div class="side-stage-list">{stage_html}</div>')
+        st.html(f'<div class="sidebar-panel side-stage-list">{stage_html}</div></div>')
 
-        st.markdown("<div style='margin-top:20px'></div>", unsafe_allow_html=True)
+        st.markdown("<div style='margin-top:16px'></div>", unsafe_allow_html=True)
         run_live = st.button("Run Live Pipeline", type="primary", width="stretch")
         st.caption("Takes 2-4 minutes — fetches live news and regenerates everything.")
 

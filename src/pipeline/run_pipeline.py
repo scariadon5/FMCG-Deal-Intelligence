@@ -128,7 +128,6 @@ def run_pipeline():
     for a in final:
         print(f"\n[{a.get('credibility_tier', '?')} | {a.get('source', '?')}] {a['text']}")
         print(f"  Stage 2 reason: {a.get('stage2_reason', 'n/a')}")
-    import json
     funnel = {
         "ingested": count_ingested,
         "stage1": count_stage1,

@@ -1,7 +1,9 @@
 import streamlit as st
+import importlib
 from components.pipeline import render as render_pipeline
 from components.hero import render as render_hero
 from components.sidebar import render as render_sidebar
+from components.topbar import render as render_topbar
 from components.metric_cards import render as render_metrics
 from components.newsletter import render as render_newsletter
 from components.downloads import render as render_downloads
@@ -48,20 +50,23 @@ if run_live:
         progress_placeholder = st.empty()
 
         try:
-            from src.pipeline.run_pipeline import run_pipeline
-            from src.pipeline.newsletter_generator import generate_newsletter
+            import src.pipeline.run_pipeline as run_pipeline_module
+            import src.pipeline.newsletter_generator as newsletter_module
+
+            run_pipeline_module = importlib.reload(run_pipeline_module)
+            newsletter_module = importlib.reload(newsletter_module)
 
             progress_placeholder.info(
                 "Ingesting live news, then running Stage 1 → Stage 2 → Dedup → Credibility..."
             )
 
-            run_pipeline()
+            run_pipeline_module.run_pipeline()
 
             progress_placeholder.info(
                 "Generating newsletter draft..."
             )
 
-            generate_newsletter()
+            newsletter_module.generate_newsletter()
 
             progress_placeholder.success(
                 "Pipeline complete! Refreshing results..."
@@ -85,40 +90,32 @@ latest_file, newsletter_content = get_latest_newsletter()
 # Main Page
 # ----------------------------------------------------
 
-render_hero()
+render_topbar()
 
-# ----------------------------------------------------
-# Metrics
-# ----------------------------------------------------
+st.html('<div id="overview" class="page-anchor"></div>')
+render_hero()
 
 render_metrics(
     articles_df,
     latest_file,
 )
+
+st.html('<div id="pipeline" class="page-anchor"></div>')
 render_pipeline()
 
-# ----------------------------------------------------
-# Newsletter
-# ----------------------------------------------------
-
+st.html('<div id="newsletter" class="page-anchor"></div>')
 render_newsletter(
     newsletter_content,
 )
 
-# ----------------------------------------------------
-# Downloads
-# ----------------------------------------------------
-
+st.html('<div id="sources" class="page-anchor"></div>')
 render_downloads(
     newsletter_content,
     latest_file,
     articles_df,
 )
 
-# ----------------------------------------------------
-# Raw Articles
-# ----------------------------------------------------
-
+st.html('<div id="deals" class="page-anchor"></div>')
 render_deals(
     articles_df,
 )
