@@ -1,5 +1,6 @@
 import streamlit as st
-
+from components.pipeline import render as render_pipeline
+from components.hero import render as render_hero
 from components.sidebar import render as render_sidebar
 from components.metric_cards import render as render_metrics
 from components.newsletter import render as render_newsletter
@@ -10,6 +11,16 @@ from src.utils.load_data import (
     load_final_articles,
     get_latest_newsletter,
 )
+from pathlib import Path
+def load_css():
+    css_path = Path(__file__).parent / "styles" / "main.css"
+
+    with open(css_path) as f:
+        st.markdown(
+            f"<style>{f.read()}</style>",
+            unsafe_allow_html=True,
+        )
+
 
 # ----------------------------------------------------
 # Page Configuration
@@ -20,6 +31,7 @@ st.set_page_config(
     page_icon="📰",
     layout="wide",
 )
+load_css()
 
 # ----------------------------------------------------
 # Sidebar
@@ -73,13 +85,7 @@ latest_file, newsletter_content = get_latest_newsletter()
 # Main Page
 # ----------------------------------------------------
 
-st.title("📰 FMCG Deal Intelligence Newsletter")
-
-st.markdown(
-    "*Automated, real-time M&A and investment tracking for the FMCG sector*"
-)
-
-st.markdown("---")
+render_hero()
 
 # ----------------------------------------------------
 # Metrics
@@ -89,6 +95,7 @@ render_metrics(
     articles_df,
     latest_file,
 )
+render_pipeline()
 
 # ----------------------------------------------------
 # Newsletter

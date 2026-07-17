@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
+
+:root {
+    --bg: #0A0D14;
+    --surface: #12161F;
+    --surface-2: #1A1F2B;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.15);
+    --text: #F1F3F7;
+    --muted: #8B93A7;
+    --primary: #6C5CE7;
+    --primary-hover: #7D6EF0;
+    --accent-blue: #3B82F6;
+    --accent-teal: #14B8A6;
+    --accent-amber: #F59E0B;
+    --accent-green: #22C55E;
+    --accent-purple: #8B5CF6;
+    --accent-coral: #F97066;
+    --radius: 18px;
+    --shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+
+.stApp { background: var(--bg); color: var(--text); }
+.block-container { padding: 3.5rem 4rem 4rem; max-width: 1440px; }
+section[data-testid="stSidebar"] { background: var(--surface); border-right: 1px solid var(--border); }
+hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+/* ---------- Hero ---------- */
+.hero { text-align: center; padding: 40px 20px 70px; }
+.hero-badge {
+    display: inline-block; padding: 8px 20px; border-radius: 999px;
+    background: rgba(108,92,231,0.15); color: #B3A9FF;
+    font-weight: 600; font-size: 0.85rem; margin-bottom: 28px;
+    border: 1px solid rgba(108,92,231,0.35); letter-spacing: 0.02em;
+}
+.hero h1 {
+    font-size: 4rem; font-weight: 800; color: var(--text);
+    margin-bottom: 22px; line-height: 1.1; letter-spacing: -0.02em;
+}
+.hero p { max-width: 680px; margin: 0 auto; color: var(--muted); font-size: 1.15rem; line-height: 1.75; }
+
+/* ---------- Generic card ---------- */
+.card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow);
+    margin-bottom: 8px;
+}
+.card h3 { font-size: 1.25rem; font-weight: 700; margin: 0 0 8px; color: var(--text); }
+.card p { color: var(--muted); font-size: 0.95rem; margin: 0 0 20px; }
+
+/* ---------- KPI grid ---------- */
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 40px 0; }
+.kpi-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 28px; display: flex; flex-direction: column; gap: 10px;
+    transition: border-color 0.2s, transform 0.2s;
+}
+.kpi-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+.kpi-value { font-size: 2.4rem; font-weight: 800; color: var(--text); letter-spacing: -0.02em; }
+.kpi-label { font-size: 0.88rem; color: var(--muted); font-weight: 500; }
+.kpi-icon {
+    width: 40px; height: 40px; border-radius: 10px; display: flex;
+    align-items: center; justify-content: center; font-size: 18px; margin-bottom: 6px;
+}
+
+/* ---------- Pipeline stages ---------- */
+.pipeline-row { display: flex; align-items: flex-start; gap: 4px; overflow-x: auto; padding: 12px 0 20px; }
+.pipeline-stage { display: flex; flex-direction: column; align-items: center; min-width: 130px; flex: 1; }
+.stage-circle {
+    width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-weight: 700; font-size: 1.05rem; color: white; margin-bottom: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+}
+.stage-label { font-size: 0.92rem; font-weight: 600; color: var(--text); text-align: center; }
+.stage-sub { font-size: 0.8rem; color: var(--muted); text-align: center; margin: 4px 0 10px; }
+.stage-count {
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 8px 14px; font-size: 0.9rem; font-weight: 700; color: var(--text); text-align: center; min-width: 80px;
+}
+.pipeline-connector {
+    flex: 0 0 28px; height: 2px; margin-top: 27px;
+    background: repeating-linear-gradient(90deg, var(--border) 0 6px, transparent 6px 10px);
+}
+
+/* ---------- Deal cards ---------- */
+.deal-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-left: 3px solid var(--deal-color, var(--primary));
+    border-radius: 14px; padding: 22px 26px; margin-bottom: 14px;
+    transition: border-color 0.2s, transform 0.15s;
+}
+.deal-card:hover { border-color: var(--border-hover); transform: translateX(2px); }
+.deal-company { font-weight: 700; font-size: 1.05rem; color: var(--text); }
+.deal-badge {
+    display: inline-block; background: var(--badge-bg, rgba(108,92,231,0.15));
+    color: var(--badge-color, #B3A9FF); border-radius: 999px; padding: 4px 12px;
+    font-size: 0.78rem; font-weight: 700; margin-left: 12px; letter-spacing: 0.01em;
+}
+.deal-headline { color: var(--muted); font-size: 0.92rem; margin-top: 8px; line-height: 1.6; }
+
+/* ---------- Buttons ---------- */
+.stButton > button, .stDownloadButton > button {
+    background: var(--primary); color: white; border: none; border-radius: 12px;
+    padding: 0.75rem 1.6rem; font-weight: 600; font-size: 0.95rem; transition: 0.2s;
+}
+.stButton > button:hover, .stDownloadButton > button:hover {
+    background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(108,92,231,0.35);
+}
+
+/* ---------- Newsletter reading card ---------- */
+.newsletter-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 52px; max-width: 880px; margin: 0 auto; box-shadow: var(--shadow);
+}
+.newsletter-card h1 { font-size: 2rem; margin-bottom: 6px; letter-spacing: -0.01em; }
+.newsletter-card h2 { font-size: 1.4rem; margin-top: 36px; margin-bottom: 12px; color: var(--text); }
+.newsletter-card h3 { font-size: 1.1rem; margin-top: 26px; margin-bottom: 8px; color: #B3A9FF; }
+.newsletter-card p, .newsletter-card li { color: #C7CCDA; line-height: 1.8; font-size: 0.98rem; margin-bottom: 10px; }
+.newsletter-card strong { color: var(--text); font-weight: 600; }
+.newsletter-card ul { padding-left: 20px; margin-bottom: 20px; }
+
+/* ---------- Section titles ---------- */
+.section-title { font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 48px 0 20px; }
+
+.nav-list { display: flex; flex-direction: column; gap: 4px; }
+.nav-item {
+    padding: 10px 14px; border-radius: 10px; color: var(--muted);
+    font-size: 0.92rem; font-weight: 500; cursor: default;
+}
+.nav-active { background: var(--primary); color: white; font-weight: 600; }
+.nav-section-label {
+    font-size: 0.72rem; font-weight: 700; color: var(--muted);
+    letter-spacing: 0.06em; text-transform: uppercase; margin: 4px 0 14px;
+}
+.side-stage-list { display: flex; flex-direction: column; }
+.side-stage { display: flex; gap: 12px; align-items: flex-start; position: relative; padding-bottom: 20px; }
+.side-stage-dot {
+    width: 24px; height: 24px; border-radius: 50%; color: white; font-size: 0.72rem;
+    font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; z-index: 1;
+}
+.side-stage-line {
+    position: absolute; left: 11px; top: 24px; bottom: 0; width: 2px; background: var(--border);
+}
+.side-stage:last-child .side-stage-line { display: none; }
+.side-stage-label { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+.side-stage-sub { font-size: 0.78rem; color: var(--muted); }
+
+.deal-row {
+    display: flex; align-items: center; gap: 16px; padding: 16px 4px;
+    border-bottom: 1px solid var(--border);
+}
+.deal-row:last-child { border-bottom: none; }
+.deal-logo {
+    width: 40px; height: 40px; border-radius: 10px; display: flex;
+    align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;
+}
+.deal-row-main { flex: 1; }
+.deal-chevron { color: var(--muted); font-size: 1.3rem; transform: rotate(90deg); }
