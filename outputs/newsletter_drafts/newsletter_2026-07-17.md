@@ -2,50 +2,30 @@
 ### July 17, 2026
 
 ## Executive Summary
-This period saw an aggressive wave of consolidation in the Indian FMCG landscape, driven by legacy conglomerates acquiring digital-first (D2C) brands to bolster their premium portfolios. Skincare, male grooming, and health-focused wellness brands were the primary targets, highlighted by Hindustan Unilever’s multi-crore buyout of Minimalist and Marico's continuous expansion in wellness. Strategic private equity activity also marked the period, highlighted by Temasek's landmark billion-dollar minority stake investment in Haldiram's.
+This period highlights aggressive portfolio premiumization and category expansion among India’s top FMCG conglomerates, particularly in the D2C skincare, wellness, and organic foods segments. Key trends include Hindustan Unilever and Dabur securing significant stakes in clean-beauty brands, while Marico and ITC bolster their health, wellness, and organic footprints through strategic acquisitions. Additionally, major private equity interest remains strong, as evidenced by Temasek's billion-dollar entry into the traditional snacks segment.
 
 ## Deals This Period
 
-### Hindustan Unilever (HUL)
-* **Hindustan Unilever acquires majority stake in Minimalist** — HUL secured regulatory approval to acquire a 90.5% stake in Uprising Science, the parent company of premium D2C skincare brand Minimalist, for approximately ₹2,955 crore to ₹2,995 crore. Sources: The Economic Times, livemint.com, Business Standard, Moneycontrol.com.
-* **Hindustan Unilever acquires Zywie Ventures and divests Nutritionalab stake** — HUL completed the full acquisition of Zywie Ventures (parent of OZiva) to scale up its presence in the health and wellbeing category, while divesting its stake in Nutritionalab. Sources: Business Standard, Moneycontrol.com.
+**Dabur acquires/invests in RAS Beauty, Asian Consumer Care, Sesa Care, Eveready Industries, and Fem Care Pharma** — Dabur significantly expanded its personal care footprint by acquiring a minority stake in D2C luxury skincare brand RAS Beauty for Rs 60 crore, a majority stake in Fem Care Pharma for Rs 204 crore, and Sesa Care to boost its haircare portfolio. Additionally, the conglomerate took full ownership of Asian Consumer Care from its joint venture partner, while its promoting Burman family acquired an additional 8.48% stake in dry-cell battery major Eveready Industries. Source: The Economic Times, Business Standard, livemint.com.
 
-### Dabur
-* **Dabur acquires minority stake in RAS Beauty** — Dabur, through its new ventures arm, agreed to acquire a minority stake in luxury skincare D2C startup RAS Beauty for ₹60 crore. Sources: The Economic Times, Business Standard.
-* **Dabur acquires Sesa Care** — Dabur has expanded its haircare portfolio with the strategic acquisition of Sesa Care. Source: livemint.com.
-* **Dabur acquires entire stake in Asian Consumer Care** — Dabur India acquired the remaining stake in Asian Consumer Care from its joint venture partner to make it a wholly-owned subsidiary. Source: Business Standard.
-* **Dabur's Burman family acquires stake in Eveready Industries** — The Burman family increased their stake in Eveready Industries by purchasing an additional 8.48% share. Source: livemint.com.
-* **Dabur acquires Fem Care Pharma** — Dabur acquired a majority stake in Fem Care Pharma for ₹204 crore. Source: The Economic Times.
+**Emami acquires Axiom Ayurveda and Helios Lifestyle** — Emami consolidated its wellness and grooming portfolios by acquiring a 100% stake in Axiom Ayurveda in a deal valued up to Rs 200 crore, alongside buying out the remaining 49.6% stake in Helios Lifestyle to gain complete ownership of the premium men's grooming brand, The Man Company. Source: The Economic Times, livemint.com.
 
-### Marico
-* **Marico acquires Cosmix Wellness** — Marico is acquiring a 60% stake in Cosmix Wellness for approximately ₹226 crore to tap into the growing consumer demand for clean-label protein and wellness supplements. Sources: Moneycontrol.com, livemint.com.
-* **Marico acquires Skinetiq** — Marico, through its subsidiary, acquired Vietnam-based beauty and personal care brand Skinetiq for ₹261 crore to expand its international footprint. Source: livemint.com.
-* **Marico acquires remaining stake in True Elements** — Building on its initial 54% holding, Marico is acquiring the remaining 46% stake in clean-label health food brand True Elements to take complete ownership. Sources: Moneycontrol.com, The Economic Times.
-* **Marico acquires Plix (The Plant Fix)** — Marico acquired a majority stake in plant-based nutrition brand Plix for ₹369 crore. Source: The Economic Times.
+**Godrej Consumer Products acquires Muuchstac** — Godrej signed an all-cash agreement worth Rs 450 crore to acquire the D2C men's grooming and personal care brand, with the brand's promoters slated to continue running operations. Source: The Economic Times, Business Standard.
 
-### Emami
-* **Emami acquires Axiom Ayurveda** — Emami agreed to acquire a 100% stake in Axiom Ayurveda in a transaction valued up to ₹200 crore, boosting its presence in the natural health segment. Source: The Economic Times.
-* **Emami acquires Helios Lifestyle (The Man Company)** — Emami is acquiring the remaining 49.6% stake in Helios Lifestyle, bringing its ownership of male grooming brand The Man Company to 100%. Source: livemint.com.
+**Hindustan Unilever acquires/invests in Minimalist and Zywie Ventures** — Hindustan Unilever agreed to acquire a 90.5% majority stake in premium skincare brand Minimalist (Uprising Science) for approximately Rs 2,955 crore. Additionally, the company fully acquired wellness player Zywie Ventures to expand its health and wellbeing division (after an initial 49% stake buy for Rs 824 crore), while simultaneously divesting its stake in Nutritionalab. Source: The Economic Times, livemint.com, Business Standard, Moneycontrol.com.
 
-### Godrej Consumer Products
-* **Godrej Consumer Products acquires Muuchstac** — Godrej acquired male grooming brand Muuchstac in an all-cash deal valued at ₹450 crore, with the brand's original promoters continuing to lead the business operations. Sources: The Economic Times, Business Standard.
+**ITC acquires/invests in Sresta Natural Bioproducts and Mother Sparsh** — ITC deepened its natural products presence by acquiring Sresta Natural Bioproducts (parent company of the 24 Mantra Organic brand) for Rs 472.5 crore, alongside purchasing a 16% stake in natural personal care brand Mother Sparsh. Source: The Economic Times, Business Standard.
 
-### Reliance Consumer Products
-* **Reliance Consumer Products acquires SIL** — Reliance acquired the SIL food brand to expand its agricultural and food processing portfolio, stepping up competition against established food players. Source: Business Standard.
-* **Reliance acquires Velvette** — Reliance acquired Velvette, the pioneering personal care brand famous for launching India’s sachet packaging revolution. Source: Business Standard.
+**Marico acquires/invests in Skinetiq, Cosmix Wellness, and True Elements** — Marico expanded its geographic and wellness reach by acquiring Vietnam-based beauty brand Skinetiq for Rs 261 crore, a 60% stake in plant-based nutrition brand Cosmix Wellness for Rs 226 crore, and the remaining 46% stake in health food brand True Elements to take full ownership. Source: livemint.com, Moneycontrol.com, The Economic Times.
 
-### ITC
-* **ITC acquires 24 Mantra Organic** — ITC signed a deal worth ₹472 crore to acquire organic food brand 24 Mantra Organic, strengthening its footprint in the clean-label food sector. Source: The Economic Times.
-* **ITC acquires stake in Mother Sparsh** — ITC agreed to acquire a 16% stake in natural D2C personal care brand Mother Sparsh. Source: Business Standard.
+**Nestle SA invests in an Indian pet food brand** — Marking its first-ever direct funding in India's pet care market, Nestle acquired a minority stake in a domestic pet food brand to tap into rapid category growth. Source: Business Standard.
 
-### Temasek
-* **Temasek invests in Haldiram's** — Global investment firm Temasek acquired a 10% minority stake in Haldiram’s snacks business in a deal valued at $1 billion. Source: Business Standard.
+**Reliance Consumer acquires SIL and Velvette** — To scale up its FMCG division and challenge established market leaders, Reliance acquired culinary brand SIL and personal care brand Velvette, famously known for pioneering India's sachet retail revolution. Source: Business Standard.
 
-### Nestle SA
-* **Nestle SA invests in Indian pet food brand** — Nestle SA completed its first-ever funding deal in the Indian pet care sector by acquiring a minority stake in a domestic pet food startup. Source: Business Standard.
+**Temasek invests in Haldiram's** — The global investment firm acquired a 10% minority stake in the prominent Indian snacks and packaged food business for $1 billion. Source: Business Standard.
 
 ## Sources
 * The Economic Times
-* livemint.com
 * Business Standard
+* livemint.com
 * Moneycontrol.com
