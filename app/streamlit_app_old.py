@@ -6,6 +6,12 @@ Fast by default (loads pre-saved results); a "Run Live Pipeline" button
 re-runs the full ingestion -> Stage 1 -> Stage 2 -> dedup -> credibility
 -> newsletter chain on demand.
 """
+"""
+Legacy Streamlit application.
+
+Preserved as a reference while migrating to the modular dashboard.
+Do not modify unless fixing a backend issue.
+"""
 
 import streamlit as st
 import pandas as pd
