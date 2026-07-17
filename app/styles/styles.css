@@ -1,0 +1,160 @@
+/* ===========================
+   Google Font
+=========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* ===========================
+   Background
+=========================== */
+
+.stApp{
+    background:#0B1120;
+}
+
+
+/* ===========================
+   Main Container
+=========================== */
+
+.block-container{
+    padding-top:2rem;
+    padding-left:3rem;
+    padding-right:3rem;
+    max-width:1500px;
+}
+
+
+/* ===========================
+   Remove Streamlit Padding
+=========================== */
+
+section.main>div{
+    padding-top:0rem;
+}
+
+
+/* ===========================
+   Sidebar
+=========================== */
+
+[data-testid="stSidebar"]{
+    background:#111827;
+    border-right:1px solid rgba(255,255,255,0.05);
+}
+
+
+/* ===========================
+   Buttons
+=========================== */
+
+.stButton>button{
+
+    background:#2563EB;
+
+    color:white;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:0.8rem 1.6rem;
+
+    font-weight:600;
+
+    transition:.25s;
+}
+
+.stButton>button:hover{
+
+    background:#3B82F6;
+
+    transform:translateY(-2px);
+
+}
+
+
+/* ===========================
+   Metric Cards
+=========================== */
+
+[data-testid="metric-container"]{
+
+    background:#111827;
+
+    border:1px solid rgba(255,255,255,.05);
+
+    padding:25px;
+
+    border-radius:18px;
+
+}
+
+
+/* ===========================
+   Headers
+=========================== */
+
+h1{
+
+    font-size:48px !important;
+
+    font-weight:700 !important;
+
+}
+
+h2{
+
+    font-size:32px !important;
+
+}
+
+h3{
+
+    font-size:24px !important;
+
+}
+
+
+/* ===========================
+   Paragraphs
+=========================== */
+
+p{
+
+    color:#CBD5E1;
+
+    line-height:1.7;
+
+}
+
+
+/* ===========================
+   Horizontal Rule
+=========================== */
+
+hr{
+
+    border:none;
+
+    border-top:1px solid rgba(255,255,255,.06);
+
+}
+
+
+/* ===========================
+   Expanders
+=========================== */
+
+.streamlit-expanderHeader{
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
