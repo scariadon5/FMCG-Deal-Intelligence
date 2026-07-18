@@ -814,3 +814,39 @@ li[role="option"] * {
         padding-top: 0.25rem;
     }
 }
+
+/* ---------- Executive summary ---------- */
+.exec-summary-card { margin-bottom: 28px; }
+
+.exec-narrative {
+    font-size: 1rem;
+    color: #344054;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.exec-stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+}
+
+.exec-stat {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+}
+
+.exec-stat-value {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #111827;
+    letter-spacing: -0.02em;
+}
+
+.exec-stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 4px;
+}
