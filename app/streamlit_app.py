@@ -42,14 +42,13 @@ load_css()
 
 # ----------------------------------------------------
 # Results-ready state
-# A previous run's output already on disk counts as "ready" so returning
-# users don't have to regenerate on every visit. First-time users (or after
-# a fresh clone with no data yet) see the landing screen until they click
-# "Generate Newsletter".
+# Every fresh page load starts on the landing screen, regardless of any
+# older output already on disk. Results only appear after the user clicks
+# "Generate Newsletter" in this session.
 # ----------------------------------------------------
 
 if "results_ready" not in st.session_state:
-    st.session_state.results_ready = os.path.exists(FINAL_ARTICLES_PATH)
+    st.session_state.results_ready = False
 
 # ----------------------------------------------------
 # Sidebar
