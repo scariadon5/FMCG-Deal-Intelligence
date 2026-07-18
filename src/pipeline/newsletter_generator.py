@@ -16,6 +16,7 @@ per article.
 """
 
 import os
+import re
 import pandas as pd
 from datetime import date
 from dotenv import load_dotenv
@@ -53,9 +54,7 @@ def build_prompt(articles_df: pd.DataFrame) -> str:
     articles_df = articles_df.reset_index(drop=True)
 
     numbered_articles = "\n".join(
-        f"{i+1}. [{articles_df.iloc[i]['source']}] {articles_df.iloc[i]['text']}\n"
-        f"   URL: {articles_df.iloc[i]['link']}\n"
-        f"   Published: {_format_date(articles_df.iloc[i].get('pub_date')) or 'unknown'}"
+        f"{i+1}. [{articles_df.iloc[i]['source']}] {articles_df.iloc[i]['text']}"
         for i in range(len(articles_df))
     )
 
@@ -78,7 +77,7 @@ def build_prompt(articles_df: pd.DataFrame) -> str:
 
     prompt = f"""You are writing a concise FMCG industry newsletter covering recent M&A and investment activity, for a professional audience (analysts, investors, industry watchers).
 
-Below is a list of news headlines that have already been filtered for FMCG relevance and recency. However, some may still not be genuine deals (e.g. earnings commentary, brand rankings, conference call transcripts, accounting charges that mention "investment" without an actual transaction). Your first job is to SILENTLY skip any headline that is not a specific, genuine M&A/acquisition/stake/investment/JV/divestment transaction.
+Below is a numbered list of news headlines that have already been filtered for FMCG relevance and recency. However, some may still not be genuine deals (e.g. earnings commentary, brand rankings, conference call transcripts, accounting charges that mention "investment" without an actual transaction). Your first job is to SILENTLY skip any headline that is not a specific, genuine M&A/acquisition/stake/investment/JV/divestment transaction.
 
 From the genuine deals that remain, write a newsletter with this exact structure:
 
@@ -94,22 +93,49 @@ Group deals by acquiring company. For each company, write a subheading using
 ### Company Name
 followed by a markdown bullet list of that company's deals. Each deal is exactly ONE bullet point, in this style:
 
-- **Company A acquires/invests in Company B or Brand** — one or two sentence description of the deal (value if known, strategic rationale if evident). Source: [Outlet Name](URL) · Published Date.
+- **Company A acquires/invests in Company B or Brand** — one or two sentence description of the deal (value if known, strategic rationale if evident). Source: [3]
 
-CRITICAL: use the EXACT URL string given for each article in the "URL:" field below — copy it verbatim, character for character. Never shorten, modify, guess, or invent a URL. Same for the "Published:" date — copy the exact date given, never guess one. If a single deal is supported by more than one headline below, cite each as its own separate markdown link with its own exact URL and its own date, separated by commas, e.g.: Source: [Outlet A](url-a) · Jul 10, 2026, [Outlet B](url-b) · Jul 12, 2026.
+CRITICAL citation rule: cite sources using ONLY the bracketed reference number(s) from the numbered Headlines list below — for example [3]. Do NOT write outlet names, URLs, or dates yourself anywhere in the Source line; only the bracketed number(s). If a single deal is supported by more than one headline, cite each as its own separate bracket, e.g.: Source: [3][7]. These bracket numbers will be automatically converted into proper linked source citations afterward — this is the ONLY acceptable citation format.
 
 Every deal MUST be its own bullet line starting with "- " at the start of the line. Do NOT combine multiple deals into one paragraph and do NOT separate deals with asterisks in the middle of a sentence — each deal gets its own bullet, on its own line, under its company's ### subheading.
 
-Do NOT use angle brackets, square brackets, or placeholder-style syntax like <action> or [Company B] in your actual output (other than the required markdown link syntax itself) - write the real company names and real actions directly in plain text.
+Do NOT use angle brackets or placeholder-style syntax like <action> or [Company B] in your actual output (other than the required bracketed reference numbers) - write the real company names and real actions directly in plain text.
 
 ## Sources
-List all outlets cited, once each, as markdown links using their most representative URL from the headlines above.
+List the reference numbers (in brackets, e.g. [3]) of every headline you actually cited above, once each, in a single line, space-separated.
 
 Headlines:
 {numbered_articles}
 
 Write ONLY the newsletter in the exact structure above. Do not add commentary about your filtering process."""
     return prompt
+
+
+def resolve_citations(newsletter_text: str, articles_df: pd.DataFrame) -> str:
+    """
+    Replaces every [N] reference number the LLM wrote with a real markdown
+    link built directly from articles_df - source name, exact URL, and date.
+    This is done in Python specifically because these Google News URLs are
+    ~300-character opaque tokens; asking an LLM to reproduce one verbatim
+    is fragile and can silently corrupt a link. Citing by reference number
+    instead means the LLM never has to touch a raw URL at all.
+    """
+    df = articles_df.reset_index(drop=True)
+
+    def _replace(match):
+        idx = int(match.group(1)) - 1
+        if idx < 0 or idx >= len(df):
+            return match.group(0)  # out-of-range ref - leave untouched rather than guess
+        row = df.iloc[idx]
+        source = row.get("source", "Unknown source")
+        url = row.get("link", "")
+        date_str = _format_date(row.get("pub_date"))
+        date_part = f" · {date_str}" if date_str else ""
+        if not url:
+            return f"{source}{date_part}"
+        return f"[{source}]({url}){date_part}"
+
+    return re.sub(r"\[(\d+)\]", _replace, newsletter_text)
 
 
 def generate_newsletter() -> str:
@@ -122,6 +148,7 @@ def generate_newsletter() -> str:
         contents=prompt,
     )
     newsletter_text = response.text
+    newsletter_text = resolve_citations(newsletter_text, articles_df)
 
     os.makedirs(os.path.dirname(OUTPUT_MD), exist_ok=True)
     with open(OUTPUT_MD, "w", encoding="utf-8") as f:
