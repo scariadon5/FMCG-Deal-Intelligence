@@ -6,12 +6,21 @@ from stage2 import STRONG_FMCG_COMPANIES, normalize
 
 COLORS = ["#3B82F6", "#22C55E", "#8B5CF6", "#F59E0B", "#14B8A6", "#F97066", "#EAB308"]
 
+# .title() mangles acronyms (ITC -> Itc, HUL -> Hul), so override known cases
+DISPLAY_OVERRIDES = {
+    "itc": "ITC",
+    "hul": "HUL",
+    "hindustan unilever": "Hindustan Unilever",
+    "p&g": "P&G",
+    "jab holdings": "JAB Holdings",
+}
+
 
 def detect_company(text):
     text_norm = normalize(text)
     for company in STRONG_FMCG_COMPANIES:
         if company in text_norm:
-            return company.title()
+            return DISPLAY_OVERRIDES.get(company, company.title())
     return "Other"
 
 
