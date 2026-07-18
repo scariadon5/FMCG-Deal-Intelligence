@@ -53,7 +53,15 @@ def render():
         st.html(f'<div class="sidebar-panel side-stage-list">{stage_html}</div></div>')
 
         st.markdown("<div style='margin-top:16px'></div>", unsafe_allow_html=True)
+        recency_days = st.slider(
+            "Look back window (days)",
+            min_value=7,
+            max_value=365,
+            value=90,
+            step=1,
+            help="Only articles published within this many days are kept. FMCG deals don't happen daily, so a wider window (e.g. 90) surfaces more real deals than a strict 30-day cutoff.",
+        )
         run_live = st.button("Generate Newsletter", type="primary", width="stretch")
         st.caption("Takes 2-4 minutes — fetches live news and builds this period's newsletter.")
 
-    return run_live
+    return run_live, recency_days
