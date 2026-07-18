@@ -31,10 +31,16 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
     color: var(--text);
 }
 
-header[data-testid="stHeader"],
 div[data-testid="stToolbar"],
 .stApp [data-testid="stDecoration"] {
     display: none !important;
+}
+
+/* Keep the header in the layout (not display:none) since Streamlit's sidebar
+   reopen arrow lives inside it - just make it visually invisible instead */
+header[data-testid="stHeader"] {
+    background: transparent !important;
+    box-shadow: none !important;
 }
 
 .block-container {
