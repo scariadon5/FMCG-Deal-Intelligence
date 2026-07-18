@@ -1,5 +1,6 @@
 import streamlit as st
 import json
+from src.utils.export_docx import markdown_to_docx
 
 
 def render(newsletter_content, latest_file, articles_df):
@@ -12,13 +13,13 @@ def render(newsletter_content, latest_file, articles_df):
     </div>
     """)
 
-    col1, col2, col3 = st.columns(3)
+    col1, col1b, col2, col3 = st.columns(4)
     with col1:
         st.markdown(
             """
             <div class="downloads-card">
                 <div class="download-item">
-                    <div class="download-label">Newsletter draft</div>
+                    <div class="download-label">Newsletter draft (.md)</div>
                     <div class="download-meta">Markdown export for sharing and review</div>
                 </div>
             </div>
@@ -31,6 +32,31 @@ def render(newsletter_content, latest_file, articles_df):
                 data=newsletter_content,
                 file_name=latest_file,
                 mime="text/markdown",
+                width="stretch",
+            )
+        else:
+            st.button("Newsletter unavailable", width="stretch", disabled=True)
+
+    with col1b:
+        st.markdown(
+            """
+            <div class="downloads-card">
+                <div class="download-item">
+                    <div class="download-label">Newsletter draft (.docx)</div>
+                    <div class="download-meta">Word export for business users</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        if newsletter_content and latest_file:
+            docx_bytes = markdown_to_docx(newsletter_content)
+            docx_filename = latest_file.replace(".md", ".docx")
+            st.download_button(
+                label="Download Newsletter (.docx)",
+                data=docx_bytes,
+                file_name=docx_filename,
+                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 width="stretch",
             )
         else:
