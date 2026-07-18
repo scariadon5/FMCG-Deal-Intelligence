@@ -53,7 +53,7 @@ def render():
         st.html(f'<div class="sidebar-panel side-stage-list">{stage_html}</div></div>')
 
         st.markdown("<div style='margin-top:16px'></div>", unsafe_allow_html=True)
-        run_live = st.button("Run Live Pipeline", type="primary", width="stretch")
-        st.caption("Takes 2-4 minutes — fetches live news and regenerates everything.")
+        run_live = st.button("Generate Newsletter", type="primary", width="stretch")
+        st.caption("Takes 2-4 minutes — fetches live news and builds this period's newsletter.")
 
     return run_live
