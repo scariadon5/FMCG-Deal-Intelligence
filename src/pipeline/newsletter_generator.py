@@ -27,7 +27,7 @@ load_dotenv()
 
 client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
 
-MODEL_NAME = "gemini-3.5-flash"  # upgraded from flash-lite - still free tier, better synthesis quality
+MODEL_NAME = "gemini-3.5-flash"  # free-tier model, chosen for synthesis quality
 INPUT_CSV = "data/processed/final_articles.csv"
 OUTPUT_MD = f"outputs/newsletter_drafts/newsletter_{date.today().isoformat()}.md"
 
