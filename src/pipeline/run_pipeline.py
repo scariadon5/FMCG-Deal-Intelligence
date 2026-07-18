@@ -39,7 +39,7 @@ OUTPUT_JSON = "data/processed/final_articles.json"
 # The assignment requires the newsletter to reflect "the latest developments"
 # via real-time sourcing - Google News RSS itself has no date-range operator,
 # so this is enforced explicitly here rather than left to RSS ranking alone.
-RECENCY_DAYS = 30
+RECENCY_DAYS = 90  # default; overridable per-run via run_pipeline(recency_days=...)
 
 
 def load_stage1_model():
@@ -92,7 +92,7 @@ def apply_stage2(articles: list) -> list:
     return survivors
 
 
-def run_pipeline():
+def run_pipeline(recency_days: int = RECENCY_DAYS):
     print("=" * 60)
     print("STEP 1: Live ingestion")
     print("=" * 60)
@@ -100,11 +100,11 @@ def run_pipeline():
     count_ingested = len(articles)
 
     print("\n" + "=" * 60)
-    print(f"STEP 1.5: Recency filter (last {RECENCY_DAYS} days)")
+    print(f"STEP 1.5: Recency filter (last {recency_days} days)")
     print("=" * 60)
-    recent_articles = apply_recency_filter(articles)
+    recent_articles = apply_recency_filter(articles, days=recency_days)
     count_recent = len(recent_articles)
-    print(f"Recency filter kept {count_recent} / {count_ingested} articles published in the last {RECENCY_DAYS} days")
+    print(f"Recency filter kept {count_recent} / {count_ingested} articles published in the last {recency_days} days")
 
     print("\n" + "=" * 60)
     print("STEP 2: Stage 1 - ML relevance classifier")
