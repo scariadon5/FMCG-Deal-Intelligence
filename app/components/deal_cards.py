@@ -1,8 +1,30 @@
 import streamlit as st
 import sys, os
+import re
+from email.utils import parsedate_to_datetime
 
 sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "src", "pipeline"))
 from stage2 import STRONG_FMCG_COMPANIES, normalize
+
+# Strips trailing headline-style suffixes (e.g. "— Details", ": Report") that
+# read as dangling fragments once isolated from their source article context.
+TRAILING_SUFFIX_PATTERN = re.compile(
+    r"\s*[-—:|]\s*(details|report|check details|full story|explained)\s*$",
+    re.IGNORECASE,
+)
+
+
+def clean_headline(text):
+    return TRAILING_SUFFIX_PATTERN.sub("", str(text)).strip()
+
+
+def format_pub_date(raw):
+    if not raw or not isinstance(raw, str):
+        return None
+    try:
+        return parsedate_to_datetime(raw).strftime("%b %d, %Y")
+    except (TypeError, ValueError):
+        return None
 
 COLORS = ["#3B82F6", "#22C55E", "#8B5CF6", "#F59E0B", "#14B8A6", "#F97066", "#EAB308"]
 
@@ -49,9 +71,13 @@ def render(df):
             continue
         color = COLORS[i % len(COLORS)]
         count = len(group)
-        top_headline = group.iloc[0]["text"]
+        top_headline = clean_headline(group.iloc[0]["text"])
         initial = company[0]
         source_count = group["source"].nunique() if "source" in group.columns else 0
+        pub_date = format_pub_date(group.iloc[0].get("pub_date")) if "pub_date" in group.columns else None
+        meta_text = f"{source_count} source{'s' if source_count != 1 else ''}"
+        if pub_date:
+            meta_text += f" · {pub_date}"
         rows_html += f"""
         <div class="deal-row">
             <div class="deal-row-accent" style="background:{color}"></div>
@@ -62,7 +88,7 @@ def render(df):
                     <span class="deal-badge" style="--badge-bg:{color}14;--badge-color:{color}">{count} deal{'s' if count != 1 else ''}</span>
                 </div>
                 <div class="deal-headline">{top_headline}</div>
-                <div class="deal-meta">{source_count} source{'s' if source_count != 1 else ''}</div>
+                <div class="deal-meta">{meta_text}</div>
             </div>
         </div>"""
 
