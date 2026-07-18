@@ -7,6 +7,30 @@ An end-to-end pipeline that ingests live FMCG industry news, filters it down to 
 
 ---
 
+## Architecture
+
+```mermaid
+flowchart TD
+    A[Google News RSS<br/>10 FMCG search queries] --> B[Recency Filter<br/>configurable window, default 90 days]
+    B --> C[Stage 1: ML Relevance Classifier<br/>TF-IDF + Logistic Regression]
+    C --> D[Stage 2: Rule Gate<br/>FMCG entity + deal-verb match]
+    D --> E[Deduplication<br/>TF-IDF cosine similarity, threshold 0.45]
+    E --> F[Credibility Scoring<br/>tier 1/2/3 source whitelist]
+    F --> G[Newsletter Generator<br/>single Gemini call: final judgment + writing]
+    G --> H[Newsletter draft .md/.docx<br/>+ CSV/JSON article export]
+
+    style A fill:#EFF6FF,stroke:#3B82F6
+    style B fill:#FEF3C7,stroke:#F59E0B
+    style C fill:#F3E8FF,stroke:#8B5CF6
+    style D fill:#FFF7ED,stroke:#F97316
+    style E fill:#ECFDF5,stroke:#14B8A6
+    style F fill:#F0FDF4,stroke:#22C55E
+    style G fill:#EEF2FF,stroke:#6366F1
+    style H fill:#F9FAFB,stroke:#111827
+```
+
+Only one stage (Newsletter Generator) calls an LLM. Every stage before it — relevance, deduplication, credibility — is classical ML or deterministic rules, which keeps the pipeline auditable and keeps token usage to a few thousand tokens per run rather than per article.
+
 ## What it does
 
 1. **Ingest** — Pulls live articles from Google News RSS across 10 FMCG-focused search queries (no API key, no LLM tokens spent here).
