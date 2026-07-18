@@ -20,6 +20,8 @@ import os
 import json
 import joblib
 import pandas as pd
+from datetime import datetime, timezone, timedelta
+from email.utils import parsedate_to_datetime
 
 # Make sibling modules importable when running this script directly
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -34,11 +36,35 @@ VECTORIZER_PATH = "models/tfidf_vectorizer.pkl"
 OUTPUT_CSV = "data/processed/final_articles.csv"
 OUTPUT_JSON = "data/processed/final_articles.json"
 
+# The assignment requires the newsletter to reflect "the latest developments"
+# via real-time sourcing - Google News RSS itself has no date-range operator,
+# so this is enforced explicitly here rather than left to RSS ranking alone.
+RECENCY_DAYS = 30
+
 
 def load_stage1_model():
     model = joblib.load(MODEL_PATH)
     vectorizer = joblib.load(VECTORIZER_PATH)
     return model, vectorizer
+
+
+def is_recent(article: dict, days: int = RECENCY_DAYS) -> bool:
+    """True if article's pub_date parses and falls within the last `days` days.
+    Unparseable/missing dates are dropped rather than assumed recent - we
+    can't claim a "real-time" guarantee for a date we can't verify."""
+    raw = article.get("pub_date", "")
+    try:
+        dt = parsedate_to_datetime(raw)
+    except (TypeError, ValueError, IndexError):
+        return False
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+    return dt >= cutoff
+
+
+def apply_recency_filter(articles: list, days: int = RECENCY_DAYS) -> list:
+    return [a for a in articles if is_recent(a, days)]
 
 
 def apply_stage1(articles: list, model, vectorizer) -> list:
@@ -74,12 +100,19 @@ def run_pipeline():
     count_ingested = len(articles)
 
     print("\n" + "=" * 60)
+    print(f"STEP 1.5: Recency filter (last {RECENCY_DAYS} days)")
+    print("=" * 60)
+    recent_articles = apply_recency_filter(articles)
+    count_recent = len(recent_articles)
+    print(f"Recency filter kept {count_recent} / {count_ingested} articles published in the last {RECENCY_DAYS} days")
+
+    print("\n" + "=" * 60)
     print("STEP 2: Stage 1 - ML relevance classifier")
     print("=" * 60)
     model, vectorizer = load_stage1_model()
-    stage1_survivors = apply_stage1(articles, model, vectorizer)
+    stage1_survivors = apply_stage1(recent_articles, model, vectorizer)
     count_stage1 = len(stage1_survivors)
-    print(f"Stage 1 kept {count_stage1} / {count_ingested} articles")
+    print(f"Stage 1 kept {count_stage1} / {count_recent} articles")
 
     print("\n" + "=" * 60)
     print("STEP 3: Stage 2 - FMCG keyword/entity gate")
@@ -106,7 +139,8 @@ def run_pipeline():
     print("\n" + "=" * 60)
     print("PIPELINE FUNNEL SUMMARY")
     print("=" * 60)
-    print(f"  Ingested:          {count_ingested}")
+    print(f"  Ingested:           {count_ingested}")
+    print(f"  After Recency:      {count_recent}  ({count_recent/count_ingested*100:.1f}% of original)")
     print(f"  After Stage 1:      {count_stage1}  ({count_stage1/count_ingested*100:.1f}% kept)")
     print(f"  After Stage 2:      {count_stage2}  ({count_stage2/count_ingested*100:.1f}% of original)")
     print(f"  After Dedup:        {count_deduped}  ({count_deduped/count_ingested*100:.1f}% of original)")
@@ -130,6 +164,7 @@ def run_pipeline():
         print(f"  Stage 2 reason: {a.get('stage2_reason', 'n/a')}")
     funnel = {
         "ingested": count_ingested,
+        "recency_filtered": count_recent,
         "stage1": count_stage1,
         "stage2": count_stage2,
         "dedup": count_deduped,
