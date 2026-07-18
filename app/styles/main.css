@@ -391,7 +391,25 @@ p, span, label, div {
 }
 .deal-headline { color: var(--muted); font-size: 0.92rem; margin-top: 8px; line-height: 1.6; }
 
-/* ---------- Buttons ---------- */
+/* ---------- Sidebar collapse/reopen control ---------- */
+/* Streamlit's own reopen arrow (shown when sidebar is closed) must never be
+   covered by our custom topbar/hero, which use their own stacking contexts */
+[data-testid="collapsedControl"] {
+    z-index: 999999 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: flex !important;
+}
+
+/* ---------- Native widget width safety net ---------- */
+/* Backup for width="stretch" - guarantees buttons never shrink-wrap or
+   skew when the container resizes (e.g. sidebar opening/closing) */
+.stDownloadButton > button,
+.stButton > button {
+    width: 100%;
+    box-sizing: border-box;
+    white-space: normal;
+}
 .stButton > button, .stDownloadButton > button {
     background: var(--primary);
     color: #FFFFFF;
