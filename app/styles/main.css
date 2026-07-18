@@ -434,6 +434,20 @@ p, span, label, div {
         0 1px 2px rgba(15, 23, 42, 0.04),
         0 12px 32px rgba(15, 23, 42, 0.06);
     margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 92px;
+}
+
+.newsletter-card a {
+    color: var(--accent-2, #2563EB);
+    text-decoration: underline;
+    text-decoration-color: rgba(37, 99, 235, 0.35);
+    text-underline-offset: 2px;
+}
+
+.newsletter-card a:hover {
+    text-decoration-color: rgba(37, 99, 235, 0.7);
 }
 
 .download-item {
