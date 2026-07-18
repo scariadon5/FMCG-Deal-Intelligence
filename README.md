@@ -2,7 +2,7 @@
 
 An end-to-end pipeline that ingests live FMCG industry news, filters it down to genuine M&A/investment activity, deduplicates near-identical coverage, scores source credibility, and generates a structured newsletter draft — with a Streamlit dashboard to run and inspect the whole thing.
 
-**Demo:** [add your Streamlit Cloud URL here]
+**Demo:** https://fmcg-newsletter.streamlit.app/
 **Repo:** https://github.com/scariadon5/FMCG-Deal-Intelligence
 
 ---
