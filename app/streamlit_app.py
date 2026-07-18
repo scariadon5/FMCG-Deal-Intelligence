@@ -54,7 +54,7 @@ if "results_ready" not in st.session_state:
 # Sidebar
 # ----------------------------------------------------
 
-run_live = render_sidebar()
+run_live, recency_days = render_sidebar()
 
 # ----------------------------------------------------
 # Run Pipeline
@@ -75,7 +75,7 @@ if run_live:
                 "Ingesting live news, then running Stage 1 → Stage 2 → Dedup → Credibility..."
             )
 
-            run_pipeline_module.run_pipeline()
+            run_pipeline_module.run_pipeline(recency_days=recency_days)
 
             progress_placeholder.info(
                 "Generating newsletter draft..."
