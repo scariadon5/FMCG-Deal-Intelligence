@@ -10,11 +10,12 @@ An end-to-end pipeline that ingests live FMCG industry news, filters it down to 
 ## What it does
 
 1. **Ingest** — Pulls live articles from Google News RSS across 10 FMCG-focused search queries (no API key, no LLM tokens spent here).
-2. **Stage 1: relevance filter** — A TF-IDF + Logistic Regression classifier, trained on ~3,290 labeled headlines, predicts whether an article is deal-related at all.
-3. **Stage 2: FMCG + deal-verb gate** — A rule-based check confirms the article names a specific FMCG entity *and* uses deal language (acquires, stake, merger, etc.), catching what the ML model alone can't guarantee.
-4. **Deduplication** — TF-IDF cosine similarity clusters near-duplicate coverage of the same deal (e.g. Reuters and Economic Times both covering "Dabur buys Fem Care"), keeping the most complete version.
-5. **Credibility scoring** — Sources are tiered against an explicit, auditable whitelist (Reuters/Bloomberg/ET = tier 1, general press = tier 2, everything else = tier 3), not learned — trustworthiness isn't something a model should infer from article text alone.
-6. **Newsletter generation** — A single LLM call (Gemini) does a final judgment pass over the surviving articles — silently dropping anything that isn't a genuine transaction (earnings commentary, brand rankings, etc. that merely *mention* "investment") — and writes the structured draft.
+2. **Recency filter** — Drops anything older than 30 days based on the article's real publish date, since RSS ranking alone doesn't guarantee freshness.
+3. **Stage 1: relevance filter** — A TF-IDF + Logistic Regression classifier, trained on ~3,290 labeled headlines, predicts whether an article is deal-related at all.
+4. **Stage 2: FMCG + deal-verb gate** — A rule-based check confirms the article names a specific FMCG entity *and* uses deal language (acquires, stake, merger, etc.), catching what the ML model alone can't guarantee.
+5. **Deduplication** — TF-IDF cosine similarity clusters near-duplicate coverage of the same deal (e.g. Reuters and Economic Times both covering "Dabur buys Fem Care"), keeping the most complete version.
+6. **Credibility scoring** — Sources are tiered against an explicit, auditable whitelist (Reuters/Bloomberg/ET = tier 1, general press = tier 2, everything else = tier 3), not learned — trustworthiness isn't something a model should infer from article text alone.
+7. **Newsletter generation** — A single LLM call (Gemini) does a final judgment pass over the surviving articles — silently dropping anything that isn't a genuine transaction (earnings commentary, brand rankings, etc. that merely *mention* "investment") — and writes the structured draft, with every deal linked back to its source article and dated.
 
 This is the only LLM call in the entire pipeline. Everything upstream is classical ML/rules, which keeps the pipeline auditable, cheap to run, and easy to explain stage-by-stage.
 
@@ -44,7 +45,8 @@ One Gemini call, capped at the top 40 articles by credibility score (keeps token
 
 ## Known assumptions & limitations (stated transparently)
 
-- **No explicit date-range filtering.** Google News RSS returns whatever it currently ranks as relevant for each query — there's no `after:`/`before:` operator applied, so a given run can surface deals from several months back alongside genuinely recent ones. The dashboard now surfaces each deal's publication date so this is visible rather than hidden, but the pipeline itself doesn't currently enforce a recency window (e.g. "last 30 days only"). Worth adding if a stricter definition of "this period" is needed.
+- **Recency is enforced explicitly, not left to RSS ranking.** Google News RSS itself has no `after:`/`before:` date operator, so a dedicated recency filter runs immediately after ingestion (`run_pipeline.py`), parsing each article's real `pubDate` and dropping anything older than **30 days** (configurable via `RECENCY_DAYS`) before Stage 1 even runs. Articles with an unparseable or missing date are dropped rather than assumed recent, since a "real-time" claim shouldn't rest on an unverifiable date. The newsletter header also displays the actual covered date range, computed directly from the surviving articles' dates (not LLM-guessed), so the claimed window is always accurate.
+- **Every deal in the newsletter links back to its source article** and shows its publication date — the LLM is instructed to copy each article's exact URL verbatim (never invent or alter one) and cite each contributing source as its own dated markdown link.
 - **Stage 1 training data is limited** — 105 positive examples (some Gemini-bootstrapped paraphrases) out of ~3,290 labeled rows. It generalizes reasonably in practice (backed by Stage 2's rule gate as a safety net), but hasn't been validated against a held-out live batch it's never seen.
 - **Credibility tiers are a fixed whitelist**, not automatically maintained — adding a new reputable source requires manually editing the list.
 
