@@ -5,11 +5,12 @@ FUNNEL_PATH = "data/processed/funnel_summary.json"
 
 STAGES = [
     ("01", "Ingestion", "RSS feed", "ingested"),
-    ("02", "Stage 1", "ML classifier", "stage1"),
-    ("03", "Stage 2", "Rule gate", "stage2"),
-    ("04", "Deduplication", "TF-IDF similarity", "dedup"),
-    ("05", "Credibility", "Source scoring", "final"),
-    ("06", "Newsletter", "LLM generation", "final"),
+    ("02", "Recency", "Last N days", "recency_filtered"),
+    ("03", "Stage 1", "ML classifier", "stage1"),
+    ("04", "Stage 2", "Rule gate", "stage2"),
+    ("05", "Deduplication", "TF-IDF similarity", "dedup"),
+    ("06", "Credibility", "Source scoring", "final"),
+    ("07", "Newsletter", "LLM generation", "final"),
 ]
 
 
