@@ -165,6 +165,7 @@ def run_pipeline(recency_days: int = RECENCY_DAYS):
     funnel = {
         "ingested": count_ingested,
         "recency_filtered": count_recent,
+        "recency_days": recency_days,
         "stage1": count_stage1,
         "stage2": count_stage2,
         "dedup": count_deduped,
