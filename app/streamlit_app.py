@@ -8,6 +8,7 @@ from components.metric_cards import render as render_metrics
 from components.newsletter import render as render_newsletter
 from components.downloads import render as render_downloads
 from components.deal_cards import render as render_deals
+from components.executive_summary import render as render_exec_summary
 
 from src.utils.load_data import (
     load_final_articles,
@@ -99,6 +100,8 @@ render_metrics(
     articles_df,
     latest_file,
 )
+
+render_exec_summary(articles_df)
 
 st.html('<div id="pipeline" class="page-anchor"></div>')
 render_pipeline()
