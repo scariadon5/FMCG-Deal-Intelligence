@@ -1,4 +1,5 @@
 import streamlit as st
+import json
 
 
 def render(newsletter_content, latest_file, articles_df):
@@ -11,7 +12,7 @@ def render(newsletter_content, latest_file, articles_df):
     </div>
     """)
 
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown(
             """
@@ -40,7 +41,7 @@ def render(newsletter_content, latest_file, articles_df):
             """
             <div class="downloads-card">
                 <div class="download-item">
-                    <div class="download-label">Article dataset</div>
+                    <div class="download-label">Article dataset (CSV)</div>
                     <div class="download-meta">CSV export of the filtered article list</div>
                 </div>
             </div>
@@ -53,6 +54,29 @@ def render(newsletter_content, latest_file, articles_df):
                 data=articles_df.to_csv(index=False),
                 file_name="final_articles.csv",
                 mime="text/csv",
+                width="stretch",
+            )
+        else:
+            st.button("Dataset unavailable", width="stretch", disabled=True)
+
+    with col3:
+        st.markdown(
+            """
+            <div class="downloads-card">
+                <div class="download-item">
+                    <div class="download-label">Article dataset (JSON)</div>
+                    <div class="download-meta">JSON export of the filtered article list</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        if not articles_df.empty:
+            st.download_button(
+                label="Download Raw Articles (.json)",
+                data=articles_df.to_json(orient="records", indent=2),
+                file_name="final_articles.json",
+                mime="application/json",
                 width="stretch",
             )
         else:
