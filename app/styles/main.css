@@ -398,9 +398,20 @@ p, span, label, div {
 .deal-headline { color: var(--muted); font-size: 0.92rem; margin-top: 8px; line-height: 1.6; }
 
 /* ---------- Sidebar collapse/reopen control ---------- */
-/* Streamlit 1.4x+ renamed this element from "collapsedControl" to
-   "stSidebarCollapsedControl" and it's a floating element over the main
-   content area, not nested in the header. Covering both names for safety. */
+/* This version of Streamlit has a bug where the reopen control does not
+   reliably reappear after the sidebar is manually collapsed. Rather than
+   leave users able to reach a dead-end state, the collapse button itself
+   is hidden - the sidebar simply stays open and can't be closed. */
+[data-testid="stSidebarCollapseButton"],
+[data-testid="stSidebarHeader"] button,
+section[data-testid="stSidebar"] button[kind="header"],
+section[data-testid="stSidebar"] [data-testid="baseButton-headerNoPadding"] {
+    display: none !important;
+}
+
+/* Safety net: if a user somehow still ends up with a collapsed sidebar
+   (e.g. a narrow viewport auto-collapsing it), keep the reopen control
+   fully visible and clickable rather than risk it being unreachable. */
 [data-testid="stSidebarCollapsedControl"],
 [data-testid="collapsedControl"] {
     z-index: 999999 !important;
