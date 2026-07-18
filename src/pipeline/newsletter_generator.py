@@ -57,12 +57,15 @@ From the genuine deals that remain, write a newsletter with this exact structure
 (2-3 sentences summarizing the overall deal activity theme this period - e.g. which companies are most active, what categories are trending)
 
 ## Deals This Period
-For each genuine deal, write one entry in plain prose, in this style:
-**Company A acquires/invests in Company B or Brand** — one or two sentence description of the deal (value if known, strategic rationale if evident). Source: outlet name.
+Group deals by acquiring company. For each company, write a subheading using
+### Company Name
+followed by a markdown bullet list of that company's deals. Each deal is exactly ONE bullet point, in this style:
+
+- **Company A acquires/invests in Company B or Brand** — one or two sentence description of the deal (value if known, strategic rationale if evident). Source: outlet name.
+
+Every deal MUST be its own bullet line starting with "- " at the start of the line. Do NOT combine multiple deals into one paragraph and do NOT separate deals with asterisks in the middle of a sentence — each deal gets its own bullet, on its own line, under its company's ### subheading.
 
 Do NOT use angle brackets, square brackets, or placeholder-style syntax like <action> or [Company B] in your actual output - write the real company names and real actions directly in plain text.
-
-Group deals by acquiring company if the same company appears multiple times, to avoid repetition.
 
 ## Sources
 List all outlets cited, once each.
