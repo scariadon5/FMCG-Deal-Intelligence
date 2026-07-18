@@ -23,9 +23,12 @@ def load_funnel():
 
 def render():
     funnel = load_funnel()
+    recency_days = funnel.get("recency_days", "N")
     stages_html = ""
     for i, (index_label, label, sub, key) in enumerate(STAGES):
         count = funnel.get(key, "—")
+        if key == "recency_filtered":
+            sub = f"Last {recency_days} days"
         stages_html += f"""
         <div class="pipeline-stage">
             <div class="pipeline-stage-top">
