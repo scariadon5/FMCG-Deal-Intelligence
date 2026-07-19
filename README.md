@@ -19,14 +19,14 @@ flowchart TD
     F --> G[Newsletter Generator<br/>single Gemini call: final judgment + writing]
     G --> H[Newsletter draft .md/.docx<br/>+ CSV/JSON article export]
 
-    style A fill:#EFF6FF,stroke:#3B82F6
-    style B fill:#FEF3C7,stroke:#F59E0B
-    style C fill:#F3E8FF,stroke:#8B5CF6
-    style D fill:#FFF7ED,stroke:#F97316
-    style E fill:#ECFDF5,stroke:#14B8A6
-    style F fill:#F0FDF4,stroke:#22C55E
-    style G fill:#EEF2FF,stroke:#6366F1
-    style H fill:#F9FAFB,stroke:#111827
+    style A fill:#EFF6FF,stroke:#3B82F6,color:#111827
+    style B fill:#FEF3C7,stroke:#F59E0B,color:#111827
+    style C fill:#F3E8FF,stroke:#8B5CF6,color:#111827
+    style D fill:#FFF7ED,stroke:#F97316,color:#111827
+    style E fill:#ECFDF5,stroke:#14B8A6,color:#111827
+    style F fill:#F0FDF4,stroke:#22C55E,color:#111827
+    style G fill:#EEF2FF,stroke:#6366F1,color:#111827
+    style H fill:#F9FAFB,stroke:#111827,color:#111827
 ```
 
 Only one stage (Newsletter Generator) calls an LLM. Every stage before it — relevance, deduplication, credibility — is classical ML or deterministic rules, which keeps the pipeline auditable and keeps token usage to a few thousand tokens per run rather than per article.
