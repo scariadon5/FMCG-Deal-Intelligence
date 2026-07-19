@@ -11,13 +11,13 @@ An end-to-end pipeline that ingests live FMCG industry news, filters it down to 
 
 ```mermaid
 flowchart TD
-    A[Google News RSS<br/>10 FMCG search queries] --> B[Recency Filter<br/>configurable window, default 90 days]
-    B --> C[Stage 1: ML Relevance Classifier<br/>TF-IDF + Logistic Regression]
-    C --> D[Stage 2: Rule Gate<br/>FMCG entity + deal-verb match]
-    D --> E[Deduplication<br/>TF-IDF cosine similarity, threshold 0.45]
-    E --> F[Credibility Scoring<br/>tier 1/2/3 source whitelist]
-    F --> G[Newsletter Generator<br/>single Gemini call: final judgment + writing]
-    G --> H[Newsletter draft .md/.docx<br/>+ CSV/JSON article export]
+    A[Data Ingestion<br/>Google News RSS · 10 FMCG search queries] --> B[Recency Filter<br/>Configurable window · default 90 days]
+    B --> C[Relevance Filter — Stage 1<br/>ML Classifier: TF-IDF + Logistic Regression]
+    C --> D[Relevance Filter — Stage 2<br/>Rule Engine: FMCG Entity + Deal-Verb Matching]
+    D --> E[Deduplication Engine<br/>TF-IDF Cosine Similarity · threshold 0.45]
+    E --> F[Credibility Scoring<br/>Tier 1 / 2 / 3 Source Classification]
+    F --> G[Newsletter Generation<br/>LLM: Final Relevance Judgment + Structured Writing]
+    G --> H[Output Layer<br/>Newsletter — MD / DOCX · Dataset — CSV / JSON]
 
     style A fill:#EFF6FF,stroke:#3B82F6,color:#111827
     style B fill:#FEF3C7,stroke:#F59E0B,color:#111827
