@@ -122,6 +122,10 @@ def resolve_citations(newsletter_text: str, articles_df: pd.DataFrame) -> str:
     """
     df = articles_df.reset_index(drop=True)
 
+    # The model often cites several articles at once ("[3][7]"); put a separator
+    # between adjacent references so the resolved links don't run together.
+    newsletter_text = re.sub(r"(\[\d+\])\s*(?=\[\d+\])", r"\1, ", newsletter_text)
+
     def _replace(match):
         idx = int(match.group(1)) - 1
         if idx < 0 or idx >= len(df):
