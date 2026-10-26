@@ -85,7 +85,7 @@ def render(df):
             <div class="deal-row-main">
                 <div class="deal-row-top">
                     <span class="deal-company">{company}</span>
-                    <span class="deal-badge" style="--badge-bg:{color}14;--badge-color:{color}">{count} deal{'s' if count != 1 else ''}</span>
+                    <span class="deal-badge" style="--badge-bg:{color}14;--badge-color:{color}">{count} article{'s' if count != 1 else ''}</span>
                 </div>
                 <div class="deal-headline">{top_headline}</div>
                 <div class="deal-meta">{meta_text}</div>
