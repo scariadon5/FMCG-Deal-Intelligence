@@ -5,8 +5,9 @@ from docx.shared import Pt, RGBColor
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
-# Matches either **bold** or [text](url) - whichever comes first, left to right
-TOKEN_PATTERN = re.compile(r"\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)]+)\)")
+# Matches **bold**, [text](url) or *italic* - whichever comes first, left to right.
+# Bold is tried first so "**x**" is never read as two italic markers.
+TOKEN_PATTERN = re.compile(r"\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)]+)\)|\*([^*\n]+)\*")
 
 
 def _add_hyperlink(paragraph, url, text):
@@ -43,8 +44,8 @@ def _add_hyperlink(paragraph, url, text):
 
 
 def _add_runs(paragraph, text):
-    """Splits text on **bold** and [text](url) markers, adding each as a
-    properly formatted run (bold text or real hyperlink) in order."""
+    """Splits text on **bold**, [text](url) and *italic* markers, adding each
+    as a properly formatted run (bold, real hyperlink or italic) in order."""
     pos = 0
     for match in TOKEN_PATTERN.finditer(text):
         if match.start() > pos:
@@ -52,12 +53,16 @@ def _add_runs(paragraph, text):
 
         bold_text = match.group(1)
         link_text, link_url = match.group(2), match.group(3)
+        italic_text = match.group(4)
 
         if bold_text is not None:
             run = paragraph.add_run(bold_text)
             run.bold = True
         elif link_text is not None:
             _add_hyperlink(paragraph, link_url, link_text)
+        elif italic_text is not None:
+            run = paragraph.add_run(italic_text)
+            run.italic = True
 
         pos = match.end()
 
